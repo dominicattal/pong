@@ -1,18 +1,23 @@
 #include "state.h"
+#include "data.h"
 #include "window/window.h"
+#include "renderer/renderer.h"
 
 void state_init(void) {
     window_init();
+    renderer_init();
+    data_init();
 }
 
 void state_loop(void) {
     while (!glfwWindowShouldClose(window.handle)) {
         window_update();
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        renderer_render();
     }
 }
 
 void state_destroy(void) {
     window_destroy();
+    renderer_destroy();
+    data_destroy();
 }
