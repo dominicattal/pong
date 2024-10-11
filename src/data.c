@@ -6,11 +6,16 @@
 
 Data data;
 
-static f32 test_data[6] = {
-    -0.5, -0.5,
-    0.5, -0.5,
-    0, 0.5
+static i8 rect[6] = {
+    0, 0,
+    1, 0,
+    0, 1
 };
+
+static void push_paddle_data(Paddle* paddle) {
+    for (i32 i = 0; i < 6; i++)
+        data.buffer[i] = rect[i];
+}
 
 void data_init() {
     data.buffer = malloc(BUFFER_LENGTH * sizeof(f32));
@@ -19,7 +24,12 @@ void data_init() {
         exit(1);
     }
     renderer_malloc(6);
-    renderer_update(0, 6, test_data);
+}
+
+void data_update() {
+    data.vbo_length = 0;
+    push_paddle_data(game.paddle1);
+    renderer_update(0, 6, data.buffer);
 }
 
 void data_destroy() {
