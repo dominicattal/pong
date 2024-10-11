@@ -1,6 +1,7 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+#include "../util.h"
 #include "vao/vao.h"
 #include "shader/shader.h"
 

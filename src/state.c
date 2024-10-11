@@ -1,7 +1,6 @@
 #include "state.h"
-#include "data.h"
-#include "window/window.h"
-#include "renderer/renderer.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void state_init(void) {
     window_init();
@@ -9,8 +8,20 @@ void state_init(void) {
     data_init();
 }
 
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+        window_close();
+    }
+}
+
+void process_input(void) {
+    if (window_key_pressed(GLFW_KEY_A))
+        puts("Hello");
+}
+
 void state_loop(void) {
     while (!glfwWindowShouldClose(window.handle)) {
+        process_input();
         window_update();
         renderer_render();
     }

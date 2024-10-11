@@ -2,6 +2,8 @@
 #include <glad.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "vao/vao.h"
+#include "shader/shader.h"
 
 Renderer renderer;
 
@@ -9,7 +11,6 @@ static void message_callback();
 
 void renderer_init() {
     glDebugMessageCallback(message_callback, 0);
-
     renderer.shader = shader_create("src/renderer/shaders/default.vert", "src/renderer/shaders/default.frag");
     renderer.vao = vao_create(GL_STATIC_DRAW, GL_TRIANGLES, 2);
     vao_attr(renderer.vao, 0, 2, 0);

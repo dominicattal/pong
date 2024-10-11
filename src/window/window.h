@@ -1,7 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <glad.h>
+#include "../util.h"
 #include <glfw.h>
 
 typedef struct {
@@ -12,6 +12,8 @@ extern Window window;
 
 void window_init(void);
 void window_update(void);
+bool window_key_pressed(GLenum key);
+void window_close(void);
 void window_destroy(void);
 
 #endif
