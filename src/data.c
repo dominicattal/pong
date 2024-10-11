@@ -3,8 +3,8 @@
 #include <stdlib.h>
 
 #define BUFFER_LENGTH 100000
-#define PADDLE_WIDTH 0.025
-#define PADDLE_HEIGHT 0.4
+#define PADDLE_WIDTH (5.0 / 500)
+#define PADDLE_HEIGHT (200.0 / 500)
 
 Data data;
 
@@ -14,8 +14,8 @@ static i8 rect_ebo[6] = { 0, 1, 2, 1, 2, 3 };
 
 static void push_paddle1_data(Paddle* paddle1) {
     for (i32 i = 0; i < 4; i++) {
-        data.vbo_buffer[2*i]   = rect_x[i] * PADDLE_WIDTH - 1;
-        data.vbo_buffer[2*i+1] = paddle1->y + rect_y[i] * PADDLE_HEIGHT;
+        data.vbo_buffer[2*i]   = rect_x[i] * PADDLE_WIDTH;
+        data.vbo_buffer[2*i+1] = paddle1->y + rect_y[i] * PADDLE_HEIGHT - PADDLE_HEIGHT / 2;
     }
     for (i32 i = 0; i < 6; i++)
         data.ebo_buffer[i] = rect_ebo[i];
@@ -24,7 +24,7 @@ static void push_paddle1_data(Paddle* paddle1) {
 static void push_paddle2_data(Paddle* paddle2) {
     for (i32 i = 0; i < 4; i++) {
         data.vbo_buffer[8+2*i]   = 1 - rect_x[i] * PADDLE_WIDTH;
-        data.vbo_buffer[8+2*i+1] = paddle2->y + rect_y[i] * PADDLE_HEIGHT;
+        data.vbo_buffer[8+2*i+1] = paddle2->y + rect_y[i] * PADDLE_HEIGHT - PADDLE_HEIGHT / 2;
     }
     for (i32 i = 0; i < 6; i++)
         data.ebo_buffer[6+i] = rect_ebo[i] + 4;
