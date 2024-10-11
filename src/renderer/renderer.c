@@ -12,16 +12,16 @@ static void message_callback();
 void renderer_init() {
     glDebugMessageCallback(message_callback, 0);
     renderer.shader = shader_create("src/renderer/shaders/default.vert", "src/renderer/shaders/default.frag");
-    renderer.vao = vao_create(GL_STATIC_DRAW, GL_TRIANGLES, 2);
+    renderer.vao = vao_create(GL_STATIC_DRAW, GL_TRIANGLES, 2, TRUE);
     vao_attr(renderer.vao, 0, 2, 0);
 }
 
-void renderer_malloc(u32 vbo_length) {
-    vao_malloc(renderer.vao, vbo_length);
+void renderer_malloc(u32 vbo_length, u32 ebo_length) {
+    vao_malloc(renderer.vao, vbo_length, ebo_length);
 }
 
-void renderer_update(u32 vbo_offset, u32 vbo_length, f32* vbo_buffer) {
-    vao_update(renderer.vao, vbo_offset, vbo_length, vbo_buffer);
+void renderer_update(u32 vbo_offset, u32 vbo_length, f32* vbo_buffer, u32 ebo_offset, u32 ebo_length, u32* ebo_buffer) {
+    vao_update(renderer.vao, vbo_offset, vbo_length, vbo_buffer, ebo_offset, ebo_length, ebo_buffer);
 }
 
 void renderer_render() {

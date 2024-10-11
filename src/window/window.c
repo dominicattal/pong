@@ -44,8 +44,6 @@ void window_destroy(void) {
     puts("Successfully destroyed window");
 }
 
-
-
 static void error_callback(int code, const char* desc) {
     fprintf(stderr, "GLFW error 0x%08X: %s\n", code, desc);
 }

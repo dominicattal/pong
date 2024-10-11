@@ -13,8 +13,8 @@ typedef struct {
 extern Renderer renderer;
 
 void renderer_init(void);
-void renderer_malloc(u32 vbo_length);
-void renderer_update(u32 vbo_offset, u32 vbo_length, f32* vbo_buffer);
+void renderer_malloc(u32 vbo_length, u32 ebo_length);
+void renderer_update(u32 vbo_offset, u32 vbo_length, f32* vbo_buffer, u32 ebo_offset, u32 ebo_length, u32* ebo_buffer);
 void renderer_render(void);
 void renderer_destroy(void);
 

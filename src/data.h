@@ -6,8 +6,9 @@
 #include "game/game.h"
 
 typedef struct {
-    f32* buffer;
-    u32 vbo_length;
+    f32* vbo_buffer;
+    u32* ebo_buffer;
+    u32 vbo_length, ebo_length;
 } Data;
 
 extern Data data;
