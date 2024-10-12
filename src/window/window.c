@@ -3,12 +3,10 @@
 #include <stdlib.h>
 #include <glad.h>
 
-#define DEFAULT_WINDOW_WIDTH 800
-#define DEFAULT_WINDOW_HEIGHT 500
-
 Window window;
 
 static void error_callback();
+static void cursor_pos_callback();
 extern void key_callback();
 
 void window_init(void) {
@@ -22,6 +20,7 @@ void window_init(void) {
     window.handle = glfwCreateWindow(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, "pong", NULL, NULL);
     glfwGetWindowSize(window.handle, &window.width, &window.height);
     glfwSetKeyCallback(window.handle, key_callback);
+    glfwSetCursorPosCallback(window.handle, cursor_pos_callback);
 
     glfwMakeContextCurrent(window.handle);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
@@ -51,4 +50,10 @@ void window_destroy(void) {
 
 static void error_callback(int code, const char* desc) {
     fprintf(stderr, "GLFW error 0x%08X: %s\n", code, desc);
+}
+
+static void cursor_pos_callback(GLFWwindow* handle, double xpos, double ypos)
+{
+    window.cursor.position.x = xpos / window.width;
+    window.cursor.position.y = ypos / window.height;
 }

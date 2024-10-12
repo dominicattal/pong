@@ -5,9 +5,10 @@
 #include "../ebo/ebo.h"
 #include "../../util.h"
 
-#define NUM_VAOS   2
+#define NUM_VAOS   3
 #define PADDLE_VAO 0
 #define BALL_VAO   1
+#define GUI_VAO    2
 
 typedef struct {
     u32 id, length;

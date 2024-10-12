@@ -15,12 +15,17 @@ void renderer_init() {
     renderer.shaders = malloc(NUM_SHADERS * sizeof(Shader));
     renderer.shaders[PADDLE_SHADER] = shader_create("src/renderer/shaders/paddle.vert", "src/renderer/shaders/paddle.frag");
     renderer.shaders[BALL_SHADER]   = shader_create("src/renderer/shaders/ball.vert", "src/renderer/shaders/ball.frag");
+    renderer.shaders[GUI_SHADER]   = shader_create("src/renderer/shaders/gui.vert", "src/renderer/shaders/gui.frag");
 
     renderer.vaos = malloc(NUM_VAOS * sizeof(VAO));
     renderer.vaos[PADDLE_VAO] = vao_create(GL_DYNAMIC_DRAW, GL_TRIANGLES, 2, TRUE);
     renderer.vaos[BALL_VAO]   = vao_create(GL_DYNAMIC_DRAW, GL_TRIANGLES, 2, TRUE);
+    renderer.vaos[GUI_VAO]    = vao_create(GL_DYNAMIC_DRAW, GL_TRIANGLES, 8, TRUE);
     vao_attr(renderer.vaos[PADDLE_VAO], 0, 2, 0);
     vao_attr(renderer.vaos[BALL_VAO]  , 0, 2, 0);
+    vao_attr(renderer.vaos[GUI_VAO]   , 0, 2, 0);
+    vao_attr(renderer.vaos[GUI_VAO]   , 1, 2, 2);
+    vao_attr(renderer.vaos[GUI_VAO]   , 2, 4, 4);
 }
 
 void renderer_malloc(u32 vao_idx, u32 vbo_length, u32 ebo_length) {
@@ -43,9 +48,11 @@ void renderer_render(void) {
 void renderer_destroy(void) {
     shader_destroy(renderer.shaders[PADDLE_SHADER]);
     shader_destroy(renderer.shaders[BALL_SHADER]);
+    shader_destroy(renderer.shaders[GUI_SHADER]);
     free(renderer.shaders);
     vao_destroy(renderer.vaos[PADDLE_VAO]);
     vao_destroy(renderer.vaos[BALL_VAO]);
+    vao_destroy(renderer.vaos[GUI_VAO]);
     free(renderer.vaos);
     puts("Successfully destroyed renderer");
 }
