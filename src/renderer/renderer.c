@@ -12,6 +12,8 @@ static void message_callback();
 void renderer_init() {
     glDebugMessageCallback(message_callback, 0);
 
+    renderer.font = texture_create("assets/font.png");
+
     renderer.shaders = malloc(NUM_SHADERS * sizeof(Shader));
     renderer.shaders[PADDLE_SHADER] = shader_create("src/renderer/shaders/paddle.vert", "src/renderer/shaders/paddle.frag");
     renderer.shaders[BALL_SHADER]   = shader_create("src/renderer/shaders/ball.vert", "src/renderer/shaders/ball.frag");
@@ -26,6 +28,16 @@ void renderer_init() {
     vao_attr(renderer.vaos[GUI_VAO]   , 0, 2, 0);
     vao_attr(renderer.vaos[GUI_VAO]   , 1, 2, 2);
     vao_attr(renderer.vaos[GUI_VAO]   , 2, 4, 4);
+
+    f32 test_data[32] = {
+        0.0, 0.0, 6.0/128.0, 8.0/128.0, 1.0, 1.0, 1.0, 1.0,
+        0.0, 1.0, 6.0/128.0, 1.0/128.0, 1.0, 1.0, 1.0, 1.0,
+        1.0, 0.0, 1.0/128.0, 8.0/128.0, 1.0, 1.0, 1.0, 1.0,
+        1.0, 1.0, 1.0/128.0, 1.0/128.0, 1.0, 1.0, 1.0, 1.0,
+    };
+    i32 ebo_data[6] = { 0, 1, 2, 1, 2, 3 };
+    renderer_malloc(GUI_VAO, 32, 6);
+    renderer_update(GUI_VAO, 0, 32, test_data, 0, 6, ebo_data);
 }
 
 void renderer_malloc(u32 vao_idx, u32 vbo_length, u32 ebo_length) {
@@ -39,6 +51,9 @@ void renderer_update(u32 vao_idx, u32 vbo_offset, u32 vbo_length, f32* vbo_buffe
 void renderer_render(void) {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+    texture_bind(renderer.font);
+    shader_use(renderer.shaders[GUI_SHADER]);
+    vao_draw(renderer.vaos[GUI_VAO]);
     shader_use(renderer.shaders[PADDLE_SHADER]);
     vao_draw(renderer.vaos[PADDLE_VAO]);
     shader_use(renderer.shaders[BALL_SHADER]);
@@ -46,6 +61,7 @@ void renderer_render(void) {
 }
 
 void renderer_destroy(void) {
+    texture_destroy(renderer.font);
     shader_destroy(renderer.shaders[PADDLE_SHADER]);
     shader_destroy(renderer.shaders[BALL_SHADER]);
     shader_destroy(renderer.shaders[GUI_SHADER]);
