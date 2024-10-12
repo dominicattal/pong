@@ -8,6 +8,7 @@ typedef struct {
     Paddle* paddle1;
     Paddle* paddle2;
     Ball* ball;
+    i32 width, height;
 } Game;
 
 extern Game game;

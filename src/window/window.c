@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <glad.h>
 
-#define DEFAULT_WINDOW_WIDTH 750
+#define DEFAULT_WINDOW_WIDTH 500
 #define DEFAULT_WINDOW_HEIGHT 500
 
 Window window;
