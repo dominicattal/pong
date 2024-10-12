@@ -9,10 +9,10 @@ typedef struct {
     Paddle* paddle2;
     Ball* ball;
     i32 width, height;
+    f32 dt, reset_timer;
 } Game;
 
 extern Game game;
-extern f32 game_dt;
 
 void game_init(void);
 void game_destroy(void);

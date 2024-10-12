@@ -12,5 +12,6 @@ typedef struct {
 Ball* ball_create(void);
 void ball_update(Ball* ball, f32 dt);
 void ball_destroy(Ball* ball);
+void ball_randomize_direction(Ball* ball);
 
 #endif

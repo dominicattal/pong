@@ -4,7 +4,7 @@
 Paddle* paddle_create(void) {
     Paddle* paddle = malloc(sizeof(Paddle));
     paddle->y = 300;
-    paddle->speed = 125;
+    paddle->speed = 500;
     paddle->direction = 0;
     paddle->width = 5;
     paddle->height = 40;
