@@ -2,6 +2,7 @@
 #define DATA_H
 
 #include "util.h"
+#include "window/window.h"
 #include "renderer/renderer.h"
 #include "game/game.h"
 

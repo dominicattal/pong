@@ -20,7 +20,8 @@ static void* game_update(void* vargp) {
         
         if (game_dt > 0.0001) {
             gettimeofday(&start, NULL);
-            game.ball->x += 0.5 * game_dt;
+            ball_update(game.ball, game_dt);
+            paddle_update(game.paddle1, game_dt);
         }
         
         gettimeofday(&end, NULL);
@@ -51,4 +52,18 @@ void game_destroy(void) {
     free(game.paddle2);
     free(game.ball);
     puts("Successfully destroyed game");
+}
+
+void game_wait(void) {
+    sem_wait(&mutex);
+}
+
+void game_post(void) {
+    sem_post(&mutex);
+}
+
+void game_set_paddle_direction(i8 direction) {
+    game_wait();
+    game.paddle1->direction = direction;
+    game_post();
 }

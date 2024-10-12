@@ -16,10 +16,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 }
 
 void process_input(void) {
+    i32 move_direction = 0;
     if (window_key_pressed(GLFW_KEY_W))
-        game.paddle1->y += 0.5 * window.dt;
+        move_direction++;
     if (window_key_pressed(GLFW_KEY_S))
-        game.paddle1->y -= 0.5 * window.dt;
+        move_direction--;
+    game_set_paddle_direction(move_direction);
 }
 
 void state_loop(void) {

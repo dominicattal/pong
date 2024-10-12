@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <glad.h>
 
-#define DEFAULT_WINDOW_WIDTH 500
+#define DEFAULT_WINDOW_WIDTH 750
 #define DEFAULT_WINDOW_HEIGHT 500
 
 Window window;
@@ -20,7 +20,7 @@ void window_init(void) {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     window.handle = glfwCreateWindow(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, "pong", NULL, NULL);
-
+    glfwGetWindowSize(window.handle, &window.width, &window.height);
     glfwSetKeyCallback(window.handle, key_callback);
 
     glfwMakeContextCurrent(window.handle);

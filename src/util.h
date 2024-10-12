@@ -20,4 +20,8 @@ typedef GLhalf    f16;
 typedef GLfloat   f32;
 typedef GLdouble  f64;
 
+typedef struct {
+    f32 x, y;
+} vec2;
+
 #endif
