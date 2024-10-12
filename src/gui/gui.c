@@ -20,7 +20,8 @@ void gui_init(void)
     gui.ebo_buffer = malloc(gui.ebo_max_length * sizeof(u32));
     
     comp_root = component_create(0.0f, 0.0f, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, COMP_DEFAULT);
-    comp_root->a = 0;
+    comp_root->a = 0.2;
+    component_set_text(comp_root, 28, "ABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz\n0123456789");
     gui.max_length_changed = TRUE;
 }
 
@@ -34,8 +35,8 @@ bool gui_input_paused(void)
 
 static void resize_gui_buffers(u32 added_vbo_length)
 {
-    if (gui.vbo_length + 8 * 4 * added_vbo_length >= gui.vbo_max_length) {
-        gui.vbo_max_length += 8 * 4 * added_vbo_length;
+    if (gui.vbo_length + 9 * 4 * added_vbo_length >= gui.vbo_max_length) {
+        gui.vbo_max_length += 9 * 4 * added_vbo_length;
         gui.ebo_max_length += 6 * added_vbo_length;
         gui.vbo_buffer = realloc(gui.vbo_buffer, gui.vbo_max_length * sizeof(f32));
         gui.ebo_buffer = realloc(gui.ebo_buffer, gui.ebo_max_length * sizeof(u32));
@@ -222,7 +223,7 @@ static void update_text_data(Component *comp, i32 x, i32 y)
             new_y1 = ly + y, new_y2 = ly + lh + y;
             win_x1 = 2 * ((f32)new_x1 / DEFAULT_WINDOW_WIDTH - 0.5f), win_y1 = 2 * ((f32)new_y1 / DEFAULT_WINDOW_HEIGHT - 0.5f);
             win_x2 = 2 * ((f32)new_x2 / DEFAULT_WINDOW_WIDTH - 0.5f), win_y2 = 2 * ((f32)new_y2 / DEFAULT_WINDOW_HEIGHT - 0.5f);
-            u32 idx = gui.vbo_length / 8;
+            u32 idx = gui.vbo_length / 9;
 
             i8 tu, tv, tw, th;
             tu = char_map[text[left]].u;
@@ -230,10 +231,10 @@ static void update_text_data(Component *comp, i32 x, i32 y)
             tw = char_map[text[left]].size.x;
             th = char_map[text[left]].size.y;
             if (text[left] != ' ' && text[left] != '\t') {
-                Z = win_x1, Z = win_y1, Z =        tu / 128.0, Z = (tv + th) / 128.0, Z = tr, Z = tg, Z = tb, Z = 1.0f;
-                Z = win_x2, Z = win_y1, Z = (tu + tw) / 128.0, Z = (tv + th) / 128.0, Z = tr, Z = tg, Z = tb, Z = 1.0f;
-                Z = win_x1, Z = win_y2, Z =        tu / 128.0, Z =        tv / 128.0, Z = tr, Z = tg, Z = tb, Z = 1.0f;
-                Z = win_x2, Z = win_y2, Z = (tu + tw) / 128.0, Z =        tv / 128.0, Z = tr, Z = tg, Z = tb, Z = 1.0f;
+                Z = win_x1, Z = win_y1, Z =        tu / 128.0, Z = (tv + th) / 128.0, Z = tr, Z = tg, Z = tb, Z = 1.0f, Z = 1;
+                Z = win_x2, Z = win_y1, Z = (tu + tw) / 128.0, Z = (tv + th) / 128.0, Z = tr, Z = tg, Z = tb, Z = 1.0f, Z = 1;
+                Z = win_x1, Z = win_y2, Z =        tu / 128.0, Z =        tv / 128.0, Z = tr, Z = tg, Z = tb, Z = 1.0f, Z = 1;
+                Z = win_x2, Z = win_y2, Z = (tu + tw) / 128.0, Z =        tv / 128.0, Z = tr, Z = tg, Z = tb, Z = 1.0f, Z = 1;
                 V = idx, V = idx + 1, V = idx + 2, V = idx + 2, V = idx + 1, V = idx + 3;
             }
             left++;
@@ -264,11 +265,11 @@ void gui_update_data_helper(Component *comp, i32 x, i32 y)
     win_x1 = 2 * ((f32)new_x1 / DEFAULT_WINDOW_WIDTH - 0.5f), win_y1 = 2 * ((f32)new_y1 / DEFAULT_WINDOW_HEIGHT - 0.5f);
     win_x2 = 2 * ((f32)new_x2 / DEFAULT_WINDOW_WIDTH - 0.5f), win_y2 = 2 * ((f32)new_y2 / DEFAULT_WINDOW_HEIGHT - 0.5f);
     resize_gui_buffers(1);
-    u32 idx = gui.vbo_length / 8;
-    Z = win_x1, Z = win_y1, Z = 0.0f, Z = 1.0f, Z = comp->r, Z = comp->g, Z = comp->b, Z = comp->a;
-    Z = win_x2, Z = win_y1, Z = 1.0f, Z = 1.0f, Z = comp->r, Z = comp->g, Z = comp->b, Z = comp->a;
-    Z = win_x1, Z = win_y2, Z = 0.0f, Z = 0.0f, Z = comp->r, Z = comp->g, Z = comp->b, Z = comp->a;
-    Z = win_x2, Z = win_y2, Z = 1.0f, Z = 0.0f, Z = comp->r, Z = comp->g, Z = comp->b, Z = comp->a;
+    u32 idx = gui.vbo_length / 9;
+    Z = win_x1, Z = win_y1, Z = 0.0f, Z = 1.0f, Z = comp->r, Z = comp->g, Z = comp->b, Z = comp->a, Z = 0;
+    Z = win_x2, Z = win_y1, Z = 1.0f, Z = 1.0f, Z = comp->r, Z = comp->g, Z = comp->b, Z = comp->a, Z = 0;
+    Z = win_x1, Z = win_y2, Z = 0.0f, Z = 0.0f, Z = comp->r, Z = comp->g, Z = comp->b, Z = comp->a, Z = 0;
+    Z = win_x2, Z = win_y2, Z = 1.0f, Z = 0.0f, Z = comp->r, Z = comp->g, Z = comp->b, Z = comp->a, Z = 0;
     V = idx, V = idx + 1, V = idx + 2, V = idx + 2, V = idx + 1, V = idx + 3;
     gui_update_data_add_text(comp, new_x1, new_y1);
     for (i32 i = 0; i < comp->num_children; i++)

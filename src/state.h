@@ -5,6 +5,7 @@
 #include "window/window.h"
 #include "renderer/renderer.h"
 #include "game/game.h"
+#include "gui/gui.h"
 
 void state_init(void);
 void state_loop(void);

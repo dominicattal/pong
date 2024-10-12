@@ -11,6 +11,8 @@ static void message_callback();
 
 void renderer_init() {
     glDebugMessageCallback(message_callback, 0);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     renderer.font = texture_create("assets/font.png");
 
@@ -22,14 +24,15 @@ void renderer_init() {
     renderer.vaos = malloc(NUM_VAOS * sizeof(VAO));
     renderer.vaos[PADDLE_VAO] = vao_create(GL_DYNAMIC_DRAW, GL_TRIANGLES, 2, TRUE);
     renderer.vaos[BALL_VAO]   = vao_create(GL_DYNAMIC_DRAW, GL_TRIANGLES, 2, TRUE);
-    renderer.vaos[GUI_VAO]    = vao_create(GL_DYNAMIC_DRAW, GL_TRIANGLES, 8, TRUE);
+    renderer.vaos[GUI_VAO]    = vao_create(GL_DYNAMIC_DRAW, GL_TRIANGLES, 9, TRUE);
     vao_attr(renderer.vaos[PADDLE_VAO], 0, 2, 0);
     vao_attr(renderer.vaos[BALL_VAO]  , 0, 2, 0);
     vao_attr(renderer.vaos[GUI_VAO]   , 0, 2, 0);
     vao_attr(renderer.vaos[GUI_VAO]   , 1, 2, 2);
     vao_attr(renderer.vaos[GUI_VAO]   , 2, 4, 4);
+    vao_attr(renderer.vaos[GUI_VAO]   , 3, 1, 8);
 
-    f32 test_data[32] = {
+    /* f32 test_data[32] = {
         0.0, 0.0, 6.0/128.0, 8.0/128.0, 1.0, 1.0, 1.0, 1.0,
         0.0, 1.0, 6.0/128.0, 1.0/128.0, 1.0, 1.0, 1.0, 1.0,
         1.0, 0.0, 1.0/128.0, 8.0/128.0, 1.0, 1.0, 1.0, 1.0,
@@ -37,7 +40,7 @@ void renderer_init() {
     };
     i32 ebo_data[6] = { 0, 1, 2, 1, 2, 3 };
     renderer_malloc(GUI_VAO, 32, 6);
-    renderer_update(GUI_VAO, 0, 32, test_data, 0, 6, ebo_data);
+    renderer_update(GUI_VAO, 0, 32, test_data, 0, 6, ebo_data); */
 }
 
 void renderer_malloc(u32 vao_idx, u32 vbo_length, u32 ebo_length) {

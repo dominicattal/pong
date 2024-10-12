@@ -7,6 +7,7 @@ void state_init(void) {
     renderer_init();
     data_init();
     game_init();
+    gui_init();
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -32,6 +33,7 @@ void process_input(void) {
 void state_loop(void) {
     while (!glfwWindowShouldClose(window.handle)) {
         process_input();
+        gui_update();
         data_update();
         window_update();
         renderer_render();
@@ -43,4 +45,5 @@ void state_destroy(void) {
     renderer_destroy();
     data_destroy();
     game_destroy();
+    gui_destroy();
 }
