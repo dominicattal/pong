@@ -13,8 +13,8 @@ typedef struct {
 
 extern Data data;
 
-void data_init();
-void data_update();
-void data_destroy();
+void data_init(void);
+void data_update(void);
+void data_destroy(void);
 
 #endif

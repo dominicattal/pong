@@ -11,9 +11,9 @@ typedef struct {
 } Game;
 
 extern Game game;
+extern f32 game_dt;
 
-void game_init();
-void game_update();
-void game_destroy();
+void game_init(void);
+void game_destroy(void);
 
 #endif

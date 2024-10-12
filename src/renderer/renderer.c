@@ -31,7 +31,7 @@ void renderer_update(u32 vao_idx, u32 vbo_offset, u32 vbo_length, f32* vbo_buffe
     vao_update(renderer.vaos[vao_idx], vbo_offset, vbo_length, vbo_buffer, ebo_offset, ebo_length, ebo_buffer);
 }
 
-void renderer_render() {
+void renderer_render(void) {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     shader_use(renderer.shaders[PADDLE_SHADER]);
@@ -40,7 +40,7 @@ void renderer_render() {
     vao_draw(renderer.vaos[BALL_VAO]);
 }
 
-void renderer_destroy() {
+void renderer_destroy(void) {
     shader_destroy(renderer.shaders[PADDLE_SHADER]);
     shader_destroy(renderer.shaders[BALL_SHADER]);
     free(renderer.shaders);
