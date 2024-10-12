@@ -22,11 +22,13 @@ void data_init(void) {
 }
 
 void data_update(void) {
+    game_wait();
     push_paddle1_data(game.paddle1);
     push_paddle2_data(game.paddle2);
     renderer_update(PADDLE_VAO, 0, 16, data.vbo_buffer, 0, 12, data.ebo_buffer);
     push_ball_data(game.ball);
     renderer_update(BALL_VAO, 0, 8, data.vbo_buffer, 0, 6, data.ebo_buffer);
+    game_post();
 }
 
 void data_destroy(void) {
@@ -37,7 +39,7 @@ void data_destroy(void) {
 
 void push_paddle1_data(Paddle* paddle1) {
     for (i32 i = 0; i < 4; i++) {
-        data.vbo_buffer[2*i]   = rect_x[i] * paddle1->width / (f32)window.width;
+        data.vbo_buffer[2*i]   = (window.width - game.width) / (2.0 * window.width) + rect_x[i] * paddle1->width / (f32)window.width;
         data.vbo_buffer[2*i+1] = paddle1->y / (f32)window.height + paddle1->height * rect_y[i] / (f32)window.height;
     }
     for (i32 i = 0; i < 6; i++)
@@ -46,7 +48,7 @@ void push_paddle1_data(Paddle* paddle1) {
 
 void push_paddle2_data(Paddle* paddle2) {
     for (i32 i = 0; i < 4; i++) {
-        data.vbo_buffer[8+2*i]   = 1 - rect_x[i] * paddle2->width / (f32)window.width;
+        data.vbo_buffer[8+2*i]   = (window.width - game.width) / (2.0 * window.width) + (f32)game.width / window.width - rect_x[i] * paddle2->width / (f32)window.width;
         data.vbo_buffer[8+2*i+1] = paddle2->y / (f32)window.height + paddle2->height * rect_y[i] / (f32)window.height;
     }
     for (i32 i = 0; i < 6; i++)
@@ -55,7 +57,7 @@ void push_paddle2_data(Paddle* paddle2) {
 
 void push_ball_data(Ball* ball) {
     for (i32 i = 0; i < 4; i++) {
-        data.vbo_buffer[2*i]   = ball->position.x / (f32)window.width + rect_x[i] * ball->width / (f32)window.width;
+        data.vbo_buffer[2*i]   = (window.width - game.width) / (2.0 * window.width) + ball->position.x / (f32)window.width + rect_x[i] * ball->width / (f32)window.width;
         data.vbo_buffer[2*i+1] = ball->position.y / (f32)window.height + rect_y[i] * ball->width / (f32)window.height;
     }
     for (i32 i = 0; i < 6; i++)

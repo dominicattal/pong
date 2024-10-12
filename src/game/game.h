@@ -10,6 +10,7 @@ typedef struct {
     Ball* ball;
     i32 width, height;
     f32 dt, reset_timer;
+    i32 player1_score, player2_score;
 } Game;
 
 extern Game game;
@@ -20,6 +21,7 @@ void game_destroy(void);
 void game_wait(void);
 void game_post(void);
 
-void game_set_paddle_direction(i8 direction);
+void game_set_paddle1_direction(i8 direction);
+void game_set_paddle2_direction(i8 direction);
 
 #endif
