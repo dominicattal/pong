@@ -16,8 +16,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 }
 
 void process_input(void) {
-    if (window_key_pressed(GLFW_KEY_A))
-        puts("Hello");
+    if (window_key_pressed(GLFW_KEY_W))
+        game.paddle1->y += 0.5 * window.dt;
+    if (window_key_pressed(GLFW_KEY_S))
+        game.paddle1->y -= 0.5 * window.dt;
 }
 
 void state_loop(void) {

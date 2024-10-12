@@ -6,6 +6,7 @@
 
 typedef struct {
     GLFWwindow* handle;
+    f32 last_frame, dt, fps;
 } Window;
 
 extern Window window;

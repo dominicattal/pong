@@ -5,6 +5,10 @@
 #include "../ebo/ebo.h"
 #include "../../util.h"
 
+#define NUM_VAOS   2
+#define PADDLE_VAO 0
+#define BALL_VAO   1
+
 typedef struct {
     u32 id, length;
     GLenum usage, mode;

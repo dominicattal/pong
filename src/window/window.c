@@ -31,6 +31,11 @@ void window_init(void) {
 void window_update(void) {
     glfwPollEvents();
     glfwSwapBuffers(window.handle);
+    f32 cur_frame = glfwGetTime();
+    window.dt = cur_frame - window.last_frame;
+    if (window.dt != 0)
+        window.fps = 1 / window.dt;
+    window.last_frame = cur_frame;
 }
 
 bool window_key_pressed(GLenum key) { return glfwGetKey(window.handle, key) == GLFW_PRESS; }

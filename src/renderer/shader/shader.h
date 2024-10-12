@@ -3,6 +3,10 @@
 
 #include "../../util.h"
 
+#define NUM_SHADERS   2
+#define PADDLE_SHADER 0
+#define BALL_SHADER   1
+
 typedef struct {
     u32 id;
 } Shader;
