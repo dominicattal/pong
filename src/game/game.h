@@ -19,7 +19,7 @@ extern Game game;
 void game_init(void);
 void game_start(void);
 void game_stop(void);
-void game_pause(void);
+bool game_pause(void);
 void game_destroy(void);
 
 void game_wait(void);

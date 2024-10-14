@@ -73,6 +73,7 @@ void game_start(void) {
     game.reset_timer = 3;
     game.dt = 0.001;
     game.started = TRUE;
+    game.paused = FALSE;
     kill_thread = FALSE;
     pthread_create(&thread_id, NULL, game_update, NULL);
 }
@@ -84,9 +85,10 @@ void game_stop(void) {
     pthread_join(thread_id, NULL);
 }
 
-void game_pause(void) {
-    if (!game.started) return;
-    game.paused = 1 - game.paused;
+bool game_pause(void) {
+    if (game.started)
+        game.paused = 1 - game.paused;
+    return game.paused;
 }
 
 void game_destroy(void) {
@@ -118,6 +120,13 @@ void game_set_paddle2_direction(i8 direction) {
     game_post();
 }
 
+static void paddle_bound_check(Paddle* paddle) {
+    if (paddle->y < 0)
+        paddle->y = 0;
+    if (paddle->y + paddle->height > game.height)
+        paddle->y = game.height - paddle->height;
+}
+
 static bool collide_paddle1_ball(void) {
     f32 px, py, pw, ph, bx, by, bw, bh;
     px = 0,                     py = game.paddle1->y,       pw = game.paddle1->width, ph = game.paddle1->height;
@@ -133,14 +142,8 @@ static bool collide_paddle2_ball(void) {
 }
 
 void collide(void) {
-    if (game.paddle1->y < 0)
-        game.paddle1->y = 0;
-    if (game.paddle1->y + game.paddle1->height > game.height)
-        game.paddle1->y = game.height - game.paddle1->height;
-    if (game.paddle2->y < 0)
-        game.paddle2->y = 0;
-    if (game.paddle2->y + game.paddle2->height > game.height)
-        game.paddle2->y = game.height - game.paddle2->height;
+    paddle_bound_check(game.paddle1);
+    paddle_bound_check(game.paddle2);
     
     if (game.reset_timer > 0)
         return;
@@ -156,6 +159,10 @@ void collide(void) {
 
     if (game.ball->position.y < 0 || game.ball->position.y + game.ball->width > game.height)
         game.ball->direction.y *= -1;
+    if (game.ball->position.y < 0)
+        game.ball->position.y = 0;
+    if (game.ball->position.y + game.ball->width > game.height)
+        game.ball->position.y = game.height - game.ball->width;
 
     if (game.ball->position.x < -150 || game.ball->position.x > game.width + 150) {
         ball_randomize(game.ball);

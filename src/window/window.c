@@ -8,6 +8,7 @@ Window window;
 static void error_callback();
 static void cursor_pos_callback();
 extern void key_callback();
+extern void mouse_button_callback();
 
 void window_init(void) {
     glfwSetErrorCallback(error_callback);
@@ -20,6 +21,7 @@ void window_init(void) {
     window.handle = glfwCreateWindow(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, "pong", NULL, NULL);
     glfwGetWindowSize(window.handle, &window.width, &window.height);
     glfwSetKeyCallback(window.handle, key_callback);
+    glfwSetMouseButtonCallback(window.handle, mouse_button_callback);
     glfwSetCursorPosCallback(window.handle, cursor_pos_callback);
 
     glfwMakeContextCurrent(window.handle);

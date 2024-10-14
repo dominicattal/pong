@@ -11,18 +11,12 @@ void state_init(void) {
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
-        window_close();
-    }
-    if (key == GLFW_KEY_U && action == GLFW_PRESS) {
-        game_start();
-    }
-    if (key == GLFW_KEY_I && action == GLFW_PRESS) {
-        game_stop();
-    }
-    if (key == GLFW_KEY_P && action == GLFW_PRESS) {
-        game_pause();
-    }
+    gui_key_callback(key, scancode, action, mods);
+}
+
+void mouse_button_callback(GLFWwindow* window, i32 button, i32 action)
+{
+    gui_mouse_button_callback(button, action);
 }
 
 void process_input(void) {

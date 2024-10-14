@@ -22,18 +22,31 @@ void gui_init(void)
     comp_root = component_create(0, 0, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, COMP_DEFAULT);
     comp_root->a = 0;
 
-    Component* score1 = component_create(0, 400, 50, 50, COMP_SCORE_PLAYER_1);
-    score1->a = 0.5;
-    score1->alignment.x = ALIGN_CENTER;
-    score1->alignment.y = ALIGN_CENTER;
+    Component* local = component_create(100, 200, 150, 100, COMP_LOCAL);
+    local->a = 0.5;
+    local->interactable = TRUE;
+    local->alignment.x = ALIGN_CENTER;
+    local->alignment.y = ALIGN_CENTER;
+    component_set_text(local, 28, "Local");
 
-    Component* score2 = component_create(800-50, 400, 50, 50, COMP_SCORE_PLAYER_2);
-    score2->a = 0.5;
-    score2->alignment.x = ALIGN_CENTER;
-    score2->alignment.y = ALIGN_CENTER;
+    Component* lan = component_create(300, 200, 150, 100, COMP_LAN);
+    lan->a = 0.5;
+    lan->interactable = TRUE;
+    lan->alignment.x = ALIGN_CENTER;
+    lan->alignment.y = ALIGN_CENTER;
+    component_set_text(lan, 28, "LAN");
 
-    component_attach(comp_root, score1);
-    component_attach(comp_root, score2);
+    Component* online = component_create(500, 200, 150, 100, COMP_ONLINE);
+    online->a = 0.5;
+    online->interactable = TRUE;
+    online->alignment.x = ALIGN_CENTER;
+    online->alignment.y = ALIGN_CENTER;
+    component_set_text(online, 28, "Online");
+
+    component_attach(comp_root, local);
+    component_attach(comp_root, lan);
+    component_attach(comp_root, online);
+    
     gui.max_length_changed = TRUE;
 }
 

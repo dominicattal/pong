@@ -25,11 +25,6 @@ Component* component_create(i32 x, i32 y, i32 w, i32 h, u32 id)
     comp->alignment.x = ALIGN_LEFT;
     comp->alignment.y = ALIGN_TOP;
     comp->id = id;
-    switch (comp->id) {
-        _COMP_CREATE(SCORE_PLAYER_1, score_player_1)
-        _COMP_CREATE(SCORE_PLAYER_2, score_player_2)
-        default: comp->id = COMP_DEFAULT;
-    }
     return comp;
 }
 
@@ -113,6 +108,8 @@ void component_remove_text(Component *comp)
 void component_mouse_button_callback(Component *comp, i32 button, i32 action)
 {
     switch (comp->id) {
+        _COMP_MB_CALLBACK(LOCAL, local)
+        _COMP_MB_CALLBACK(MENU, menu)
     }
 }
 
@@ -147,5 +144,6 @@ void component_hover_callback(Component *comp, i32 action)
 void component_key_callback(Component *comp, i32 key, i32 scancode, i32 action, i32 mods)
 {
     switch (comp->id) {
+        _COMP_KEY_CALLBACK(PAUSE, pause)
     }
 }
