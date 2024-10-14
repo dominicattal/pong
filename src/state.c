@@ -14,6 +14,15 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
         window_close();
     }
+    if (key == GLFW_KEY_U && action == GLFW_PRESS) {
+        game_start();
+    }
+    if (key == GLFW_KEY_I && action == GLFW_PRESS) {
+        game_stop();
+    }
+    if (key == GLFW_KEY_P && action == GLFW_PRESS) {
+        game_pause();
+    }
 }
 
 void process_input(void) {

@@ -17,18 +17,28 @@ static void push_ball_data(Ball* ball);
 void data_init(void) {
     data.vbo_buffer = malloc(BUFFER_LENGTH * sizeof(f32));
     data.ebo_buffer = malloc(BUFFER_LENGTH * sizeof(u32));
-    renderer_malloc(PADDLE_VAO, 16, 12);
-    renderer_malloc(BALL_VAO, 8, 6);
+    data.initialized = FALSE;
 }
 
 void data_update(void) {
-    game_wait();
-    push_paddle1_data(game.paddle1);
-    push_paddle2_data(game.paddle2);
-    renderer_update(PADDLE_VAO, 0, 16, data.vbo_buffer, 0, 12, data.ebo_buffer);
-    push_ball_data(game.ball);
-    renderer_update(BALL_VAO, 0, 8, data.vbo_buffer, 0, 6, data.ebo_buffer);
-    game_post();
+    if (game.started) {
+        if (!data.initialized) {
+            renderer_malloc(PADDLE_VAO, 16, 12);
+            renderer_malloc(BALL_VAO, 8, 6);
+            data.initialized = 1 - data.initialized;
+        }
+        game_wait();
+        push_paddle1_data(game.paddle1);
+        push_paddle2_data(game.paddle2);
+        renderer_update(PADDLE_VAO, 0, 16, data.vbo_buffer, 0, 12, data.ebo_buffer);
+        push_ball_data(game.ball);
+        renderer_update(BALL_VAO, 0, 8, data.vbo_buffer, 0, 6, data.ebo_buffer);
+        game_post();
+    } else if (data.initialized) {
+        renderer_malloc(PADDLE_VAO, 0, 0);
+        renderer_malloc(BALL_VAO, 0, 0);
+        data.initialized = 1 - data.initialized;
+    }
 }
 
 void data_destroy(void) {

@@ -12,7 +12,7 @@ Ball* ball_create(void) {
     ball->direction.x = 1;
     ball->direction.y = 0;
     ball->width = 10;
-    ball->speed = 500;
+    ball->speed = MIN_SPEED;
     return ball;
 }
 

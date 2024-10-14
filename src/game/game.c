@@ -25,15 +25,20 @@ static void* game_update(void* vargp) {
         
         if (game.dt > 0.0001) {
             gettimeofday(&start, NULL);
+            if (game.started && !game.paused) {
+                game_wait();
 
-            if (game.reset_timer > 0)
-                game.reset_timer -= game.dt;
-            else
-                ball_update(game.ball, game.dt);
+                if (game.reset_timer > 0)
+                    game.reset_timer -= game.dt;
+                else
+                    ball_update(game.ball, game.dt);
 
-            paddle_update(game.paddle1, game.dt);
-            paddle_update(game.paddle2, game.dt);
-            collide();
+                paddle_update(game.paddle1, game.dt);
+                paddle_update(game.paddle2, game.dt);
+                collide();
+
+                game_post();
+            }
         }
         
         gettimeofday(&end, NULL);
@@ -51,20 +56,42 @@ void game_init(void) {
     game.width = DEFAULT_GAME_WIDTH;
     game.height = DEFAULT_GAME_HEIGHT;
     game.dt = 0.001;
-    game.reset_timer = 0;
+    game.started = FALSE;
+    game.paused = FALSE;
+    sem_init(&mutex, 0, 1);
+}
+
+void game_start(void) {
+    if (game.started) return;
+    game.paddle1->y = (game.height - game.paddle1->height) / 2;
+    game.paddle2->y = (game.height - game.paddle2->height) / 2;
+    game.ball->position.x = game.width / 2 - game.ball->width / 2;
+    game.ball->position.y = game.height / 2 - game.ball->width / 2;
+    game.reset_timer = RESET_TIME;
     game.player1_score = 0;
     game.player2_score = 0;
-    
+    game.reset_timer = 3;
+    game.dt = 0.001;
+    game.started = TRUE;
     kill_thread = FALSE;
-    sem_init(&mutex, 0, 1);
     pthread_create(&thread_id, NULL, game_update, NULL);
 }
 
-void game_destroy(void) {
+void game_stop(void) {
+    if (!game.started) return;
+    game.started = FALSE;
     kill_thread = TRUE;
     pthread_join(thread_id, NULL);
-    sem_destroy(&mutex);
+}
 
+void game_pause(void) {
+    if (!game.started) return;
+    game.paused = 1 - game.paused;
+}
+
+void game_destroy(void) {
+    game_stop();
+    sem_destroy(&mutex);
     free(game.paddle1);
     free(game.paddle2);
     free(game.ball);

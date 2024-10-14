@@ -10,6 +10,7 @@ typedef struct {
     f32* vbo_buffer;
     u32* ebo_buffer;
     u32 vbo_length, ebo_length;
+    bool initialized;
 } Data;
 
 extern Data data;
