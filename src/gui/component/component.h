@@ -51,6 +51,9 @@ void component_hover_callback(Component *comp, i32 action);
 #define HOVER_ON  1
 
 #define COMP_DEFAULT 0
+#define COMP_SCORE_PLAYER_1 1
+#define COMP_SCORE_PLAYER_2 2
+#define NOTHING 3
 
 #define _COMP_INIT(_ltype) \
     void comp_##_ltype##_create(Component *comp); \
@@ -59,5 +62,8 @@ void component_hover_callback(Component *comp, i32 action);
     void comp_##_ltype##_key_callback(Component *comp, i32 key, i32 scancode, i32 action, i32 mods); \
     void comp_##_ltype##_update(Component *comp); \
     void comp_##_ltype##_destroy(Component *comp);
+
+_COMP_INIT(score_player_1)
+_COMP_INIT(score_player_2)
 
 #endif

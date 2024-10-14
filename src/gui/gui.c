@@ -19,9 +19,21 @@ void gui_init(void)
     gui.vbo_buffer = malloc(gui.vbo_max_length * sizeof(f32));
     gui.ebo_buffer = malloc(gui.ebo_max_length * sizeof(u32));
     
-    comp_root = component_create(0.0f, 0.0f, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, COMP_DEFAULT);
-    comp_root->a = 0.2;
-    component_set_text(comp_root, 28, "ABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz\n0123456789");
+    comp_root = component_create(0, 0, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, COMP_DEFAULT);
+    comp_root->a = 0;
+
+    Component* score1 = component_create(0, 400, 50, 50, COMP_SCORE_PLAYER_1);
+    score1->a = 0.5;
+    score1->alignment.x = ALIGN_CENTER;
+    score1->alignment.y = ALIGN_CENTER;
+
+    Component* score2 = component_create(800-50, 400, 50, 50, COMP_SCORE_PLAYER_2);
+    score2->a = 0.5;
+    score2->alignment.x = ALIGN_CENTER;
+    score2->alignment.y = ALIGN_CENTER;
+
+    component_attach(comp_root, score1);
+    component_attach(comp_root, score2);
     gui.max_length_changed = TRUE;
 }
 

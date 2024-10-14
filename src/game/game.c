@@ -119,14 +119,10 @@ void collide(void) {
         return;
 
     if (collide_paddle1_ball() && game.ball->direction.x < 0) {
-        printf("-");
-        game.player2_score++;
         ball_randomize(game.ball);
     }
 
     if (collide_paddle2_ball() && game.ball->direction.x > 0) {
-        printf("+");
-        game.player1_score++;
         ball_randomize(game.ball);
         game.ball->direction.x *= -1;
     }
@@ -136,8 +132,12 @@ void collide(void) {
 
     if (game.ball->position.x < -150 || game.ball->position.x > game.width + 150) {
         ball_randomize(game.ball);
-        if (game.ball->position.x > game.width + 150)
+        if (game.ball->position.x > game.width + 150) {
+            game.player1_score++;
             game.ball->direction.x *= -1;
+        } else {
+            game.player2_score++;
+        }
         game.ball->position.x = game.width / 2 - game.ball->width / 2;
         game.ball->position.y = game.height / 2 - game.ball->width / 2;
         game.reset_timer = RESET_TIME;

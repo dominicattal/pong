@@ -26,6 +26,8 @@ Component* component_create(i32 x, i32 y, i32 w, i32 h, u32 id)
     comp->alignment.y = ALIGN_TOP;
     comp->id = id;
     switch (comp->id) {
+        _COMP_CREATE(SCORE_PLAYER_1, score_player_1)
+        _COMP_CREATE(SCORE_PLAYER_2, score_player_2)
         default: comp->id = COMP_DEFAULT;
     }
     return comp;
@@ -120,6 +122,8 @@ void component_mouse_button_callback(Component *comp, i32 button, i32 action)
 void component_update(Component *comp)
 {
     switch (comp->id) {
+        _COMP_UPDATE(SCORE_PLAYER_1, score_player_1)
+        _COMP_UPDATE(SCORE_PLAYER_2, score_player_2)
     }
 }
 
