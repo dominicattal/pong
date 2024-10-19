@@ -4,6 +4,8 @@
 #include "paddle/paddle.h"
 #include "ball/ball.h"
 
+#define GAME_MAX_SCORE 1
+
 typedef struct {
     Paddle* paddle1;
     Paddle* paddle2;

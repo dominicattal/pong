@@ -23,9 +23,13 @@ void comp_local_mouse_button_callback(Component *comp, i32 button, i32 action) {
     pause->a = 0.0;
     pause->interactable = TRUE;
 
+    Component* win = component_create(200, 400, 200, 50, COMP_WIN);
+    win->a = 0.0;
+
     component_attach(comp_root, score1);
     component_attach(comp_root, score2);
     component_attach(comp_root, pause);
+    component_attach(comp_root, win);
 
     game_start();
 }

@@ -17,6 +17,7 @@ void window_init(void) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
     window.handle = glfwCreateWindow(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, "pong", NULL, NULL);
     glfwGetWindowSize(window.handle, &window.width, &window.height);
@@ -47,7 +48,6 @@ void window_close(void) {
 
 void window_destroy(void) {
     glfwTerminate();
-    puts("Successfully destroyed window");
 }
 
 static void error_callback(int code, const char* desc) {

@@ -97,7 +97,6 @@ void game_destroy(void) {
     free(game.paddle1);
     free(game.paddle2);
     free(game.ball);
-    puts("Successfully destroyed game");
 }
 
 void game_wait(void) {

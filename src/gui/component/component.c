@@ -110,6 +110,7 @@ void component_mouse_button_callback(Component *comp, i32 button, i32 action)
     switch (comp->id) {
         _COMP_MB_CALLBACK(LOCAL, local)
         _COMP_MB_CALLBACK(MENU, menu)
+        _COMP_MB_CALLBACK(EXIT, exit)
     }
 }
 
@@ -121,6 +122,7 @@ void component_update(Component *comp)
     switch (comp->id) {
         _COMP_UPDATE(SCORE_PLAYER_1, score_player_1)
         _COMP_UPDATE(SCORE_PLAYER_2, score_player_2)
+        _COMP_UPDATE(WIN, win);
     }
 }
 

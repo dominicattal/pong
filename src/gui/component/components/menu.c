@@ -30,9 +30,17 @@ void comp_menu_mouse_button_callback(Component *comp, i32 button, i32 action) {
     online->alignment.y = ALIGN_CENTER;
     component_set_text(online, 28, "Online");
 
+    Component* exit = component_create(250, 50, 150, 100, COMP_EXIT);
+    exit->a = 0.5;
+    exit->interactable = TRUE;
+    exit->alignment.x = ALIGN_CENTER;
+    exit->alignment.y = ALIGN_CENTER;
+    component_set_text(exit, 28, "Exit");
+
     component_attach(comp_root, local);
     component_attach(comp_root, lan);
     component_attach(comp_root, online);
+    component_attach(comp_root, exit);
 }
 
 void comp_menu_hover_callback(Component *comp, i32 action) {

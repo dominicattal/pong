@@ -25,7 +25,7 @@ void data_update(void) {
         if (!data.initialized) {
             renderer_malloc(PADDLE_VAO, 16, 12);
             renderer_malloc(BALL_VAO, 8, 6);
-            data.initialized = 1 - data.initialized;
+            data.initialized = 1;
         }
         game_wait();
         push_paddle1_data(game.paddle1);
@@ -37,14 +37,13 @@ void data_update(void) {
     } else if (data.initialized) {
         renderer_malloc(PADDLE_VAO, 0, 0);
         renderer_malloc(BALL_VAO, 0, 0);
-        data.initialized = 1 - data.initialized;
+        data.initialized = 0;
     }
 }
 
 void data_destroy(void) {
     free(data.vbo_buffer);
     free(data.ebo_buffer);
-    puts("Successfully destroyed data buffer");
 }
 
 void push_paddle1_data(Paddle* paddle1) {

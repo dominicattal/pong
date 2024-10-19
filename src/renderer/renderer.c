@@ -73,7 +73,6 @@ void renderer_destroy(void) {
     vao_destroy(renderer.vaos[BALL_VAO]);
     vao_destroy(renderer.vaos[GUI_VAO]);
     free(renderer.vaos);
-    puts("Successfully destroyed renderer");
 }
 
 static void GLAPIENTRY message_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)

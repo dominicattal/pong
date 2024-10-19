@@ -2,10 +2,13 @@
 #include "../../../game/game.h"
 
 static void create_pause_menu(Component* comp) {
-    Component* menu = component_create(0, 0, 100, 100, COMP_MENU);
+    Component* menu = component_create(250, 250, 100, 100, COMP_MENU);
+    menu->relative = FALSE;
     menu->interactable = TRUE;
+    menu->alignment.x = ALIGN_CENTER;
+    menu->alignment.y = ALIGN_CENTER;
     menu->a = 0.5;
-    menu->r = 0.5;
+    component_set_text(menu, 28, "Exit");
     component_attach(comp, menu);
 }
 
