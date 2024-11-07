@@ -55,11 +55,12 @@ void component_hover_callback(Component *comp, i32 action);
 #define COMP_SCORE_PLAYER_2 2
 #define COMP_LOCAL 3
 #define COMP_LAN 4
-#define COMP_ONLINE 5
 #define COMP_PAUSE 6
 #define COMP_MENU 7
 #define COMP_WIN 8
 #define COMP_EXIT 9
+#define COMP_HOST 10
+#define COMP_JOIN 11
 
 #define _COMP_INIT(_ltype) \
     void comp_##_ltype##_create(Component *comp); \
@@ -73,10 +74,11 @@ _COMP_INIT(score_player_1)
 _COMP_INIT(score_player_2)
 _COMP_INIT(local)
 _COMP_INIT(lan)
-_COMP_INIT(online)
 _COMP_INIT(pause)
 _COMP_INIT(menu)
 _COMP_INIT(win)
 _COMP_INIT(exit)
+_COMP_INIT(host)
+_COMP_INIT(join)
 
 #endif

@@ -23,13 +23,6 @@ void comp_menu_mouse_button_callback(Component *comp, i32 button, i32 action) {
     lan->alignment.y = ALIGN_CENTER;
     component_set_text(lan, 28, "LAN");
 
-    Component* online = component_create(500, 200, 150, 100, COMP_ONLINE);
-    online->a = 0.5;
-    online->interactable = TRUE;
-    online->alignment.x = ALIGN_CENTER;
-    online->alignment.y = ALIGN_CENTER;
-    component_set_text(online, 28, "Online");
-
     Component* exit = component_create(250, 50, 150, 100, COMP_EXIT);
     exit->a = 0.5;
     exit->interactable = TRUE;
@@ -39,7 +32,6 @@ void comp_menu_mouse_button_callback(Component *comp, i32 button, i32 action) {
 
     component_attach(comp_root, local);
     component_attach(comp_root, lan);
-    component_attach(comp_root, online);
     component_attach(comp_root, exit);
 }
 

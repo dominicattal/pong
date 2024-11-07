@@ -111,6 +111,9 @@ void component_mouse_button_callback(Component *comp, i32 button, i32 action)
         _COMP_MB_CALLBACK(LOCAL, local)
         _COMP_MB_CALLBACK(MENU, menu)
         _COMP_MB_CALLBACK(EXIT, exit)
+        _COMP_MB_CALLBACK(LAN, lan)
+        _COMP_MB_CALLBACK(HOST, host)
+        _COMP_MB_CALLBACK(JOIN, join)
     }
 }
 

@@ -37,7 +37,7 @@ void data_update(void) {
     } else if (data.initialized) {
         renderer_malloc(PADDLE_VAO, 0, 0);
         renderer_malloc(BALL_VAO, 0, 0);
-        data.initialized = 0;
+        data.initialized = 1 - data.initialized;
     }
 }
 
